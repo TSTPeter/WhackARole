@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Final Scoreboard</title>
+    <link rel="stylesheet" href="finalScoreboard.css">
+</head>
+<body>
+    <audio id="background-music" src="start.mp3" autoplay loop></audio>
+    <div id="scoreboard-container" class="scoreboard-container">
+        <div class="header">
+            <h1>TOP 5 SCORES</h1>
+        </div>
+        <div id="score-list" class="score-list">
+            <!-- Score list items will be inserted here by JavaScript -->
+        </div>
+        <div id="initials-input" class="initials-input hidden">
+            <span id="initials-prompt">Enter your initials:</span>
+            <input type="text" id="player-initials" maxlength="3" placeholder="AAA">
+            <button onclick="submitInitials()">Submit</button>
+        </div>
+    </div>
+    <div id="restart-overlay" class="overlay hidden">
+        <div class="overlay-text">Press any button to restart</div>
+    </div>
+
+    <script src="finalScoreboard.js"></script>
+</body>
+</html>
