@@ -73,7 +73,7 @@ function countdownAndStart() {
         if (countdown < 0) {
             clearInterval(interval);
             document.body.removeChild(countdownElement);
-            window.location.href = 'ROUND1.HTML';
+            window.location.href = 'round1.html';
         }
     }, 1000);
 }
