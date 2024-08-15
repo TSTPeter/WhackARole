@@ -1,9 +1,9 @@
 let scores = JSON.parse(localStorage.getItem('highscores')) || [
     { initials: "KAM", score: 219 },
-    { initials: "NAM", score: 190 },
-    { initials: "CCC", score: 100 },
-    { initials: "DDD", score: 75 },
-    { initials: "EEE", score: 50 }
+    { initials: "MAW", score: 190 },
+    { initials: "MAW", score: 173 },
+    { initials: "PBF", score: 131 },
+    { initials: "NEW", score: 129 }
 ];
 
 let player1Score = parseInt(new URLSearchParams(window.location.search).get('player1Score'), 10);
