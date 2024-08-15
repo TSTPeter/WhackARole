@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROUND 2</title>
+    <link rel="stylesheet" href="round2.css">
+</head>
+<body>
+    <audio id="background-music" src="round2.mp3" loop></audio>
+    <audio id="sound-player1" src="bing1.wav"></audio>
+    <audio id="sound-error" src="error.wav"></audio>
+    <div id="game-container" class="game-container">
+        <div id="player1-area" class="player-area">
+            <pre class="ascii-art">PLAYER 1</pre>
+                <div id="player1-score-board">
+                    <div id="player1-round">Round: 2</div>
+                    <div id="player1-score">Score: 0</div>
+                    <div>Bonus points: <span id="player1-bonus-points">100</span></div>
+                </div>
+            <div id="player1-buttons" class="player-buttons">
+                <table>
+                    <tr>
+                        <td><img src="green.png" id="player1-green" class="button"></td>
+                        <td><img src="white.png" id="player1-white" class="button"></td>
+                        <td><img src="blue.png" id="player1-blue" class="button"></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td><img src="red.png" id="player1-red" class="button"></td>
+                        <td><img src="yellow.png" id="player1-yellow" class="button"></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="player1-overlay" class="player-overlay hidden">
+                <pre id="player1-overlay-text" class="overlay-text"></pre>
+            </div>
+        </div>
+    </div>
+    <div id="global-overlay" class="overlay">
+    <pre id="global-overlay-text" class="overlay-text">
+        ROUND 2: REACTION TIME
+        Hit the buttons as they light up! Earn 10 points per hit, but lose 10 points for mistakes!
+        Press any button to Start
+    </pre>
+</div>
+
+    <audio id="sound-green" src="bing1.wav"></audio>
+    <audio id="sound-white" src="bing1.wav"></audio>
+    <audio id="sound-blue" src="bing1.wav"></audio>
+    <audio id="sound-red" src="bing1.wav"></audio>
+    <audio id="sound-yellow" src="bing1.wav"></audio>
+    <script src="round2.js"></script>
+</body>
+</html>

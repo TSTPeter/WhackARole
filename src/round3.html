@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROUND 3 - Whack-a-job</title>
+    <link rel="stylesheet" href="round3.css">
+</head>
+<body>
+    <audio id="background-music" src="round3.mp3" loop></audio>
+    <audio id="sound-player1" src="bing1.wav"></audio>
+    <audio id="sound-error" src="error.wav"></audio>
+    <div id="game-container" class="game-container">
+        <div id="player1-area" class="player-area">
+            <pre class="ascii-art">PLAYER 1</pre>
+            <div id="player1-score-board">
+                <div id="player1-round">Round: 3</div>
+                <div id="player1-score">Score: 0</div>
+                <div>Time left: <span id="player1-timer">60</span> seconds</div>
+            </div>
+            <div id="player1-buttons" class="player-buttons">
+                <table>
+                    <tr>
+                        <td><img src="green.png" id="player1-green" class="button"></td>
+                        <td><img src="white.png" id="player1-white" class="button"></td>
+                        <td><img src="blue.png" id="player1-blue" class="button"></td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td><img src="red.png" id="player1-red" class="button"></td>
+                        <td><img src="yellow.png" id="player1-yellow" class="button"></td>
+                    </tr>
+                </table>
+            </div>
+            <div id="player1-overlay" class="player-overlay hidden">
+                <pre id="player1-overlay-text" class="overlay-text"></pre>
+            </div>
+        </div>
+    </div>
+    <div id="global-overlay" class="overlay hidden">
+        <pre id="global-overlay-text" class="overlay-text">
+            ROUND 3: WHACK-A-JOB
+            Stay alive! Hit the buttons as they light up!
+            Press any button to Start
+        </pre>
+    </div>
+    <script src="round3.js"></script>
+</body>
+</html>
