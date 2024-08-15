@@ -5,6 +5,8 @@ window.onload = () => {
     // Show the pop-up message on load
     const popupOverlay = document.getElementById('popup-overlay');
     popupOverlay.addEventListener('click', handleFirstClick);
+    popupOverlay.addEventListener('keydown', handleFirstClick);
+    popupOverlay.addEventListener('touchstart', handleFirstClick);
 };
 
 function handleFirstClick() {
@@ -14,6 +16,11 @@ function handleFirstClick() {
     // Start the background music
     playBackgroundMusic();
 
+        // Remove the event listeners after the game starts
+        document.removeEventListener('click', handleFirstClick);
+        document.removeEventListener('keydown', handleFirstClick);
+        document.removeEventListener('touchstart', handleFirstClick);
+    
     // Prepare for the second click to start the game
     document.addEventListener('click', startGame);
     document.addEventListener('keydown', startGame);
