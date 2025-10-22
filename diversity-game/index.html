@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Synergy - Diversity Card Game</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="game-container">
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen active">
+            <div class="welcome-content">
+                <h1 class="game-title">Team Synergy</h1>
+                <p class="tagline">Experience the Power of Diverse Teams</p>
+                <div class="game-description">
+                    <p>A trick-based card game that demonstrates how diverse teams solve complex engineering challenges more effectively.</p>
+                    <ul class="learning-points">
+                        <li>Different perspectives lead to innovative solutions</li>
+                        <li>Varied experiences strengthen problem-solving</li>
+                        <li>Complementary skills create synergy</li>
+                        <li>Inclusive teams outperform homogeneous ones</li>
+                    </ul>
+                </div>
+                <div class="player-setup">
+                    <label for="player-name">Your Name:</label>
+                    <input type="text" id="player-name" placeholder="Enter your name" />
+                    <label for="num-players">Number of Players:</label>
+                    <select id="num-players">
+                        <option value="2">2 Players</option>
+                        <option value="3">3 Players</option>
+                        <option value="4" selected>4 Players</option>
+                    </select>
+                </div>
+                <button id="start-game-btn" class="btn-primary">Start Game</button>
+                <button id="how-to-play-btn" class="btn-secondary">How to Play</button>
+            </div>
+        </div>
+
+        <!-- How to Play Screen -->
+        <div id="how-to-play-screen" class="screen">
+            <div class="rules-content">
+                <h2>How to Play</h2>
+                <div class="rules-section">
+                    <h3>Objective</h3>
+                    <p>Build the most diverse and effective teams to solve engineering challenges. The player with the most points at the end wins!</p>
+                </div>
+                <div class="rules-section">
+                    <h3>Card Types</h3>
+                    <div class="card-types">
+                        <div class="card-type">
+                            <span class="suit-icon skills">★</span>
+                            <strong>Skills</strong> - Technical expertise (Software, Hardware, Design, Testing)
+                        </div>
+                        <div class="card-type">
+                            <span class="suit-icon perspectives">◆</span>
+                            <strong>Perspectives</strong> - Thinking styles (Analytical, Creative, Strategic, Practical)
+                        </div>
+                        <div class="card-type">
+                            <span class="suit-icon experience">●</span>
+                            <strong>Experience</strong> - Career stages (Junior, Mid-level, Senior, Expert)
+                        </div>
+                        <div class="card-type">
+                            <span class="suit-icon background">■</span>
+                            <strong>Background</strong> - Cultural diversity (Different regions, languages, industries)
+                        </div>
+                    </div>
+                </div>
+                <div class="rules-section">
+                    <h3>Gameplay</h3>
+                    <ol>
+                        <li>Each player receives 10 cards</li>
+                        <li>A challenge card is revealed (e.g., "Autonomous Vehicle Safety System")</li>
+                        <li>Lead player plays a card from their hand</li>
+                        <li>Other players must follow suit or play any card</li>
+                        <li>The trick is won by the highest card of the lead suit</li>
+                        <li><strong>Diversity Bonus:</strong> Teams with all 4 different suits get +10 points!</li>
+                        <li>Player with most points after 10 rounds wins</li>
+                    </ol>
+                </div>
+                <div class="rules-section">
+                    <h3>Scoring</h3>
+                    <p><strong>Base Points:</strong> Card value (1-13)</p>
+                    <p><strong>Diversity Bonus:</strong> +10 points for having all 4 suit types</p>
+                    <p><strong>Synergy Bonus:</strong> +5 points for having 3 different suits</p>
+                </div>
+                <button id="back-to-menu-btn" class="btn-secondary">Back to Menu</button>
+            </div>
+        </div>
+
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <!-- Top Bar -->
+            <div class="top-bar">
+                <div class="round-info">
+                    <span class="round-label">Round:</span>
+                    <span id="current-round">1</span> / <span id="total-rounds">10</span>
+                </div>
+                <div class="challenge-card">
+                    <h3>Challenge:</h3>
+                    <p id="challenge-text">Autonomous Vehicle Safety System</p>
+                </div>
+                <button id="pause-btn" class="btn-icon">⏸</button>
+            </div>
+
+            <!-- Player Areas (3 opponents) -->
+            <div class="opponents-area">
+                <div class="opponent opponent-1" id="player-1">
+                    <div class="player-info">
+                        <span class="player-name">Player 2</span>
+                        <span class="player-score">0</span>
+                    </div>
+                    <div class="player-hand">
+                        <div class="card-back"></div>
+                        <div class="card-back"></div>
+                        <div class="card-back"></div>
+                    </div>
+                </div>
+                <div class="opponent opponent-2" id="player-2">
+                    <div class="player-info">
+                        <span class="player-name">Player 3</span>
+                        <span class="player-score">0</span>
+                    </div>
+                    <div class="player-hand">
+                        <div class="card-back"></div>
+                        <div class="card-back"></div>
+                        <div class="card-back"></div>
+                    </div>
+                </div>
+                <div class="opponent opponent-3" id="player-3">
+                    <div class="player-info">
+                        <span class="player-name">Player 4</span>
+                        <span class="player-score">0</span>
+                    </div>
+                    <div class="player-hand">
+                        <div class="card-back"></div>
+                        <div class="card-back"></div>
+                        <div class="card-back"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Play Area (center) -->
+            <div class="play-area">
+                <div class="trick-cards" id="trick-cards">
+                    <!-- Cards played in current trick appear here -->
+                </div>
+                <div class="diversity-indicator" id="diversity-indicator">
+                    <div class="diversity-label">Team Diversity:</div>
+                    <div class="diversity-suits" id="diversity-suits"></div>
+                    <div class="diversity-bonus" id="diversity-bonus"></div>
+                </div>
+            </div>
+
+            <!-- Player's Hand (bottom) -->
+            <div class="player-area">
+                <div class="player-info">
+                    <span class="player-name" id="player-name-display">You</span>
+                    <span class="player-score" id="player-score">0</span>
+                </div>
+                <div class="player-hand" id="player-hand">
+                    <!-- Player's cards appear here -->
+                </div>
+            </div>
+
+            <!-- Score Summary -->
+            <div class="score-summary" id="score-summary">
+                <h3>Round Complete!</h3>
+                <div class="trick-winner">
+                    <p><span id="winner-name">Player</span> wins the trick!</p>
+                </div>
+                <div class="diversity-analysis">
+                    <h4>Team Composition:</h4>
+                    <div id="team-composition"></div>
+                </div>
+                <div class="points-awarded">
+                    <p>Points: <span id="points-value">0</span></p>
+                </div>
+                <button id="continue-btn" class="btn-primary">Continue</button>
+            </div>
+        </div>
+
+        <!-- Final Score Screen -->
+        <div id="final-score-screen" class="screen">
+            <div class="final-score-content">
+                <h1>Game Over!</h1>
+                <div class="winner-announcement">
+                    <h2 id="winner-announcement">Champion</h2>
+                    <p class="winner-message">Built the most diverse and effective teams!</p>
+                </div>
+                <div class="final-scores" id="final-scores">
+                    <!-- Final scores will be displayed here -->
+                </div>
+                <div class="diversity-insights">
+                    <h3>Diversity Insights</h3>
+                    <div id="diversity-insights">
+                        <!-- Insights about diversity benefits during the game -->
+                    </div>
+                </div>
+                <div class="final-buttons">
+                    <button id="play-again-btn" class="btn-primary">Play Again</button>
+                    <button id="main-menu-btn" class="btn-secondary">Main Menu</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Microsoft Teams SDK (only loads in Teams context) -->
+    <script src="https://res.cdn.office.net/teams-js/2.0.0/js/MicrosoftTeams.min.js" crossorigin="anonymous"></script>
+
+    <!-- Game Scripts -->
+    <script src="teams-integration.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
