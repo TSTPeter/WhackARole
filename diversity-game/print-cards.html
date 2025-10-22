@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Synergy - Printable Cards</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 10mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: white;
+        }
+
+        .print-instructions {
+            padding: 20px;
+            background: #f0f0f0;
+            margin: 20px;
+            border-radius: 10px;
+        }
+
+        .print-instructions h1 {
+            color: #FFCC00;
+            margin-bottom: 10px;
+        }
+
+        .print-instructions button {
+            padding: 15px 30px;
+            background: #FFCC00;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .print-instructions button:hover {
+            background: #FFB700;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 63mm);
+            grid-template-rows: repeat(3, 88mm);
+            gap: 5mm;
+            padding: 10mm;
+            page-break-after: always;
+        }
+
+        .card {
+            width: 63mm;
+            height: 88mm;
+            border: 2px solid #333;
+            border-radius: 4mm;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            padding: 3mm;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .card-value {
+            position: absolute;
+            top: 3mm;
+            left: 3mm;
+            font-size: 8mm;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .card-value-bottom {
+            position: absolute;
+            bottom: 3mm;
+            right: 3mm;
+            font-size: 8mm;
+            font-weight: bold;
+            color: #333;
+            transform: rotate(180deg);
+        }
+
+        .card-center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .card-suit-icon {
+            font-size: 15mm;
+            margin: 2mm 0;
+        }
+
+        .card-suit-name {
+            font-size: 3.5mm;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin: 2mm 0;
+            letter-spacing: 0.5mm;
+        }
+
+        .card-role {
+            font-size: 3mm;
+            color: #666;
+            margin-top: 2mm;
+            line-height: 1.3;
+        }
+
+        .card-footer {
+            position: absolute;
+            bottom: 3mm;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2mm;
+            color: #999;
+        }
+
+        /* Suit-specific colors */
+        .skills {
+            color: #4CAF50;
+            border-color: #4CAF50;
+        }
+
+        .perspectives {
+            color: #2196F3;
+            border-color: #2196F3;
+        }
+
+        .experience {
+            color: #FF9800;
+            border-color: #FF9800;
+        }
+
+        .background {
+            color: #9C27B0;
+            border-color: #9C27B0;
+        }
+
+        /* Card backs */
+        .card-back {
+            background: linear-gradient(135deg, #FFCC00 0%, #FF9800 100%);
+            border: 3px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-back::before {
+            content: "★";
+            font-size: 30mm;
+            color: rgba(0, 0, 0, 0.1);
+            position: absolute;
+        }
+
+        .card-back-title {
+            font-size: 6mm;
+            font-weight: bold;
+            color: #000;
+            z-index: 1;
+            text-align: center;
+        }
+
+        /* Challenge cards */
+        .challenge-card {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-color: #FFCC00;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 5mm;
+        }
+
+        .challenge-title {
+            font-size: 2.5mm;
+            color: #FFCC00;
+            margin-bottom: 2mm;
+            text-transform: uppercase;
+            letter-spacing: 0.5mm;
+        }
+
+        .challenge-text {
+            font-size: 4mm;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        @media print {
+            .print-instructions {
+                display: none;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            .card-grid {
+                page-break-after: always;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="print-instructions">
+        <h1>Team Synergy - Printable Cards</h1>
+        <p><strong>Printing Instructions:</strong></p>
+        <ol>
+            <li>Use 300gsm cardstock for best results</li>
+            <li>Print in color</li>
+            <li>Cut along the card borders</li>
+            <li>Optional: Laminate or use card sleeves for durability</li>
+            <li>You will need to print card backs separately (page at the end)</li>
+        </ol>
+        <p><strong>Total cards to print:</strong> 52 playing cards + 10 challenge cards + card backs</p>
+        <button onclick="window.print()">Print Cards</button>
+    </div>
+
+    <div id="cards-container"></div>
+
+    <script>
+        const SUITS = {
+            skills: { icon: '★', color: 'skills', label: 'Skills' },
+            perspectives: { icon: '◆', color: 'perspectives', label: 'Perspectives' },
+            experience: { icon: '●', color: 'experience', label: 'Experience' },
+            background: { icon: '■', color: 'background', label: 'Background' }
+        };
+
+        const CARD_ROLES = {
+            skills: ['Software Engineer', 'Hardware Engineer', 'UX Designer', 'Quality Tester', 'DevOps', 'Security Expert', 'Data Scientist', 'System Architect', 'Frontend Dev', 'Backend Dev', 'Mobile Dev', 'Cloud Architect', 'Product Manager'],
+            perspectives: ['Analytical Thinker', 'Creative Innovator', 'Strategic Planner', 'Practical Builder', 'Detail Oriented', 'Big Picture', 'Risk Taker', 'Methodical', 'Visionary', 'Process Driven', 'Customer Focused', 'Tech Enthusiast', 'Business Minded'],
+            experience: ['Junior (1-3y)', 'Mid-level (3-5y)', 'Senior (5-10y)', 'Expert (10+y)', 'Team Lead', 'Tech Lead', 'Architect', 'Consultant', 'Mentor', 'Specialist', 'Generalist', 'Manager', 'Director'],
+            background: ['Europe', 'Asia', 'Americas', 'Africa', 'Oceania', 'Startup', 'Corporate', 'Academic', 'Multilingual', 'Cross-industry', 'Research', 'Operations', 'International']
+        };
+
+        const CHALLENGES = [
+            "Autonomous Vehicle Safety System",
+            "Smart City Traffic Management",
+            "Electric Vehicle Battery Optimization",
+            "Connected Car Cybersecurity",
+            "Sustainable Manufacturing Process",
+            "User Experience Design Innovation",
+            "Supply Chain Optimization",
+            "AI-Powered Quality Control",
+            "Green Energy Integration",
+            "Next-Gen Infotainment System"
+        ];
+
+        function createCard(suit, value, role, colorClass) {
+            return `
+                <div class="card ${colorClass}">
+                    <div class="card-value">${value}</div>
+                    <div class="card-center">
+                        <div class="card-suit-icon">${suit}</div>
+                        <div class="card-suit-name">${SUITS[colorClass.toLowerCase()].label}</div>
+                        <div class="card-role">${role}</div>
+                    </div>
+                    <div class="card-value-bottom">${value}</div>
+                    <div class="card-footer">Team Synergy</div>
+                </div>
+            `;
+        }
+
+        function createChallengeCard(challenge) {
+            return `
+                <div class="card challenge-card">
+                    <div>
+                        <div class="challenge-title">Challenge</div>
+                        <div class="challenge-text">${challenge}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createCardBack() {
+            return `
+                <div class="card card-back">
+                    <div class="card-back-title">TEAM<br>SYNERGY</div>
+                </div>
+            `;
+        }
+
+        function generateCards() {
+            const container = document.getElementById('cards-container');
+            let html = '';
+            let cardCount = 0;
+
+            // Generate all playing cards
+            Object.keys(SUITS).forEach(suitKey => {
+                const suit = SUITS[suitKey];
+                const roles = CARD_ROLES[suitKey];
+
+                for (let value = 1; value <= 13; value++) {
+                    if (cardCount % 9 === 0) {
+                        if (cardCount > 0) html += '</div>';
+                        html += '<div class="card-grid">';
+                    }
+
+                    html += createCard(suit.icon, value, roles[value - 1], suit.color);
+                    cardCount++;
+                }
+            });
+
+            // Add remaining empty slots to complete the last page
+            while (cardCount % 9 !== 0) {
+                html += '<div class="card" style="border: 1px dashed #ccc;"></div>';
+                cardCount++;
+            }
+            html += '</div>';
+
+            // Generate challenge cards
+            html += '<div class="card-grid">';
+            CHALLENGES.forEach((challenge, index) => {
+                html += createChallengeCard(challenge);
+            });
+            html += '</div>';
+
+            // Generate card backs (6 pages to cover all 52 cards)
+            for (let page = 0; page < 6; page++) {
+                html += '<div class="card-grid">';
+                for (let i = 0; i < 9; i++) {
+                    html += createCardBack();
+                }
+                html += '</div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        // Generate cards on page load
+        generateCards();
+    </script>
+</body>
+</html>
